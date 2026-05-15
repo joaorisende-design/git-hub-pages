@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Experiências — João Humberto Resende" />
+  <title>Experiências — João Humberto</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --surface2: #1f1f1f;
+      --accent: #c8a96e;
+      --text: #f0ece4;
+      --muted: #888880;
+      --border: rgba(200, 169, 110, 0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 3rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 10rem 5rem 4rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      left: -5%;
+      top: 20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(200,169,110,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .page-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+    }
+
+    /* CONTENT */
+    .content { padding: 5rem 5rem; }
+
+    /* EXPERIENCE CARDS */
+    .exp-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+    .exp-card:hover { border-color: var(--accent); }
+
+    .exp-img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .exp-body { padding: 2rem; }
+
+    .exp-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.3);
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .exp-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .exp-duration {
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .exp-duration::before {
+      content: '';
+      width: 18px; height: 1px;
+      background: var(--muted);
+    }
+
+    /* TIMELINE DIVIDER */
+    .timeline {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 3rem 0;
+      max-width: 1100px;
+    }
+    .timeline-line { flex: 1; height: 1px; background: var(--border); }
+    .timeline-dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .content { padding: 3rem 1.5rem; }
+      .exp-block { grid-template-columns: 1fr; gap: 2rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="portfolio-joao-humberto.html">Portfólio</a>
+    <ul class="nav-links">
+      <li><a href="portfolio-joao-humberto.html">Início</a></li>
+      <li><a href="certificacoes.html">Certificações</a></li>
+      <li><a href="experiencias.html" class="active">Experiências</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" style="animation: fadeUp 0.9s ease both;">
+    <p class="page-eyebrow">Trajetória</p>
+    <h1 class="page-title">Experiências</h1>
+  </div>
+
+  <div class="content">
+    <div class="exp-block">
+
+      <!-- UNABRAS -->
+      <div class="exp-card reveal">
+        <svg class="exp-img" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="300" fill="#1a1a1a"/>
+          <defs>
+            <pattern id="g1" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(200,169,110,0.06)" stroke-width="1"/>
+            </pattern>
+            <radialGradient id="rg1" cx="40%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="rgba(200,169,110,0.12)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <rect width="560" height="300" fill="url(#g1)"/>
+          <rect width="560" height="300" fill="url(#rg1)"/>
+          <text x="280" y="115" text-anchor="middle" font-size="40" fill="rgba(200,169,110,0.65)">🔧</text>
+          <text x="280" y="168" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="rgba(200,169,110,0.75)">UNABRAS</text>
+          <text x="280" y="194" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" fill="rgba(200,169,110,0.4)" letter-spacing="5">AUTO PEÇAS</text>
+          <line x1="195" y1="208" x2="365" y2="208" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+          <path d="M 18 18 L 18 44 M 18 18 L 44 18" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 542 18 L 516 18 M 542 18 L 542 44" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 18 282 L 18 256 M 18 282 L 44 282" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 542 282 L 516 282 M 542 282 L 542 256" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div class="exp-body">
+          <span class="exp-tag">Auto Peças</span>
+          <h2 class="exp-name">Unabras Auto Peças</h2>
+          <p class="exp-duration">1 ano e 5 meses</p>
+        </div>
+      </div>
+
+      <!-- MARINHA -->
+      <div class="exp-card reveal" style="transition-delay: 0.15s;">
+        <svg class="exp-img" viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="560" height="300" fill="#1a1a1a"/>
+          <defs>
+            <pattern id="g2" width="30" height="30" patternUnits="userSpaceOnUse">
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(200,169,110,0.06)" stroke-width="1"/>
+            </pattern>
+            <radialGradient id="rg2" cx="60%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="rgba(200,169,110,0.12)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <rect width="560" height="300" fill="url(#g2)"/>
+          <rect width="560" height="300" fill="url(#rg2)"/>
+          <text x="280" y="115" text-anchor="middle" font-size="40" fill="rgba(200,169,110,0.65)">⚓</text>
+          <text x="280" y="165" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="rgba(200,169,110,0.4)" letter-spacing="6">MARINHA DO BRASIL</text>
+          <line x1="185" y1="178" x2="375" y2="178" stroke="rgba(200,169,110,0.2)" stroke-width="1"/>
+          <text x="280" y="208" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="rgba(200,169,110,0.75)">Marinha do Brasil</text>
+          <path d="M 18 18 L 18 44 M 18 18 L 44 18" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 542 18 L 516 18 M 542 18 L 542 44" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 18 282 L 18 256 M 18 282 L 44 282" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+          <path d="M 542 282 L 516 282 M 542 282 L 542 256" stroke="rgba(200,169,110,0.35)" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div class="exp-body">
+          <span class="exp-tag">Serviço Militar</span>
+          <h2 class="exp-name">Marinha do Brasil</h2>
+          <p class="exp-duration">1 ano</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 João Humberto Resende do Nascimento</span>
+    <span style="color: var(--accent); font-family: 'Playfair Display', serif; font-style: italic;">Portfólio Profissional</span>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
